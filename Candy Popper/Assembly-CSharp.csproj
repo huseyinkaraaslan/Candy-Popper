@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CreateCandy.cs" />
+    <Compile Include="Assets\Scripts\BlowUpCandy.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
   </ItemGroup>
   <ItemGroup>

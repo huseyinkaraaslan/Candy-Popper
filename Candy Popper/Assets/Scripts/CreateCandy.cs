@@ -6,7 +6,7 @@ public class CreateCandy : MonoBehaviour
 {
     int x, y;
     public GameObject[] candies;
-    public GameObject[,] candiesMatrix;
+    public static GameObject[,] candiesMatrix;
     public Transform candyParent;
 
 
@@ -27,8 +27,6 @@ public class CreateCandy : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.Lerp(transform.position, new Vector2(0, -y), Time.deltaTime * 2);
-
-        playerControl();
     }
 
     public GameObject chooseCandy()
@@ -43,14 +41,6 @@ public class CreateCandy : MonoBehaviour
         candiesMatrix[x, y] = newCandy;
         newCandy.transform.SetParent(candyParent);
     }
-
-    public void playerControl()
-    {
-        
-    }
-
-    
-
 
 
 }

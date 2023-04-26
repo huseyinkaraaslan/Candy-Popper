@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     int roundedNumberX, roundedNumberY, distanceX, distanceY;
-    GameObject firstChosenObject, secondChosenObject,tempCandy, candySelectionFrame;
+    public GameObject firstChosenObject, secondChosenObject, candySelectionFrame;
     Touch finger;
-    Vector3 fingerPosition,tempCandyPosition;
+    Vector2 fingerPosition, firstTempCandyPosition, secondTempCandyPosition;
+    public bool isBlowed, isTouched;
 
     void Start()
     {
@@ -24,68 +25,63 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
+            isTouched = true;
             finger = Input.GetTouch(0);
-            fingerPosition = Camera.main.ScreenToWorldPoint(new Vector3(finger.position.x, finger.position.y, 5));
+            fingerPosition = Camera.main.ScreenToWorldPoint(new Vector2(finger.position.x, finger.position.y));
             roundedNumberX = Mathf.RoundToInt(fingerPosition.x);
             roundedNumberY = Mathf.RoundToInt(fingerPosition.y);
             candySelectionFrame.transform.position = new Vector3(roundedNumberX, roundedNumberY, 5);
 
-
             if (firstChosenObject == null)
             {
-                firstChosenObject = gameObject.GetComponent<CreateCandy>().candiesMatrix[roundedNumberX, roundedNumberY];
+                firstChosenObject = CreateCandy.candiesMatrix[roundedNumberX, roundedNumberY];
             }
-
             else
             {
-                secondChosenObject = gameObject.GetComponent<CreateCandy>().candiesMatrix[roundedNumberX, roundedNumberY];
+                secondChosenObject = CreateCandy.candiesMatrix[roundedNumberX, roundedNumberY];
 
                 if (firstChosenObject != secondChosenObject)
                 {
-                    distanceX = Mathf.Abs(Mathf.RoundToInt(firstChosenObject.transform.position.x - secondChosenObject.transform.position.x));
-                    distanceY = Mathf.Abs(Mathf.RoundToInt(firstChosenObject.transform.position.y - secondChosenObject.transform.position.y));
+                    distanceX = Mathf.Abs((int)(firstChosenObject.transform.position.x - secondChosenObject.transform.position.x));
+                    distanceY = Mathf.Abs((int)(firstChosenObject.transform.position.y - secondChosenObject.transform.position.y));
 
                     if (distanceX + distanceY == 1)
                     {
-                        if (distanceX == 1)
-                        {
-                            changePosition();
-                            gameObject.GetComponent<CreateCandy>().candiesMatrix[Mathf.RoundToInt(firstChosenObject.transform.position.x), Mathf.RoundToInt(firstChosenObject.transform.position.y)] = secondChosenObject;
-                            gameObject.GetComponent<CreateCandy>().candiesMatrix[Mathf.RoundToInt(secondChosenObject.transform.position.x), Mathf.RoundToInt(secondChosenObject.transform.position.y)] = firstChosenObject;
-                            firstChosenObject = null;
-                            secondChosenObject = null;
-                        }
-
-                        else if (distanceY == 1)
-                        {
-                            changePosition();
-                            gameObject.GetComponent<CreateCandy>().candiesMatrix[Mathf.RoundToInt(firstChosenObject.transform.position.x), Mathf.RoundToInt(firstChosenObject.transform.position.y)] = secondChosenObject;
-                            gameObject.GetComponent<CreateCandy>().candiesMatrix[Mathf.RoundToInt(secondChosenObject.transform.position.x), Mathf.RoundToInt(secondChosenObject.transform.position.y)] = firstChosenObject;
-                            firstChosenObject = null;
-                            secondChosenObject = null;
-                        }
+                        secondChosenObject = CreateCandy.candiesMatrix[roundedNumberX, roundedNumberY];
+                        changePosition();
+                        changeMatrixValues();
+                        firstChosenObject = null;
+                        secondChosenObject=null;
                     }
-
                     else
                     {
                         firstChosenObject = secondChosenObject;
-                        secondChosenObject = null;
                     }
                 }
-
-                else
-                {
-                    secondChosenObject = null;
-                }
+                secondChosenObject = null;
             }
         }
     }
 
-    public void changePosition()
+    public void changeMatrixValues()
     {
-        tempCandyPosition = firstChosenObject.transform.position;
-        firstChosenObject.transform.position = secondChosenObject.transform.position;
-        secondChosenObject.transform.position = tempCandyPosition;
-
+        CreateCandy.candiesMatrix[(int)firstChosenObject.transform.position.x, (int)firstChosenObject.transform.position.y] = firstChosenObject;
+        CreateCandy.candiesMatrix[(int)secondChosenObject.transform.position.x, (int)secondChosenObject.transform.position.y] = secondChosenObject;
     }
+
+    public void  changePosition()
+    {
+        firstTempCandyPosition = firstChosenObject.transform.position;
+        secondTempCandyPosition = secondChosenObject.transform.position;
+
+        firstChosenObject.transform.position = secondTempCandyPosition;
+        secondChosenObject.transform.position = firstTempCandyPosition;
+
+        if (isBlowed)
+        {
+            secondChosenObject.transform.position = secondTempCandyPosition;
+            firstChosenObject.transform.position = firstTempCandyPosition;
+        }
+    }
+
 }

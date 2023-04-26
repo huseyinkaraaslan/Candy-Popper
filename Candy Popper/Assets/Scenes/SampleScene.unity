@@ -931,6 +931,7 @@ GameObject:
   - component: {fileID: 1054158167}
   - component: {fileID: 1054158166}
   - component: {fileID: 1054158168}
+  - component: {fileID: 1054158169}
   m_Layer: 0
   m_Name: Candies
   m_TagString: Untagged
@@ -982,6 +983,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed846c020b77e41bd2675a2c25450e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstChosenObject: {fileID: 0}
+  secondChosenObject: {fileID: 0}
+  candySelectionFrame: {fileID: 0}
+--- !u!114 &1054158169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054158165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bd88551a677bf4f804bf2b3760069d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1246691132
