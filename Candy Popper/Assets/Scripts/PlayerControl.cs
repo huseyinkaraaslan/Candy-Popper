@@ -7,8 +7,8 @@ public class PlayerControl : MonoBehaviour
     int roundedNumberX, roundedNumberY, distanceX, distanceY;
     public GameObject firstChosenObject, secondChosenObject, candySelectionFrame;
     Touch finger;
-    Vector2 fingerPosition, firstTempCandyPosition, secondTempCandyPosition;
-    public bool isBlowed, isTouched;
+    Vector2 fingerPosition, firstChosenObjectTargetPos, secondChosenObjectTargetPos;
+    public bool isBlowed, isTouched, isPositionChanging;
 
     void Start()
     {
@@ -51,7 +51,6 @@ public class PlayerControl : MonoBehaviour
                         changePosition();
                         changeMatrixValues();
                         firstChosenObject = null;
-                        secondChosenObject=null;
                     }
                     else
                     {
@@ -71,17 +70,12 @@ public class PlayerControl : MonoBehaviour
 
     public void  changePosition()
     {
-        firstTempCandyPosition = firstChosenObject.transform.position;
-        secondTempCandyPosition = secondChosenObject.transform.position;
+        firstChosenObjectTargetPos = secondChosenObject.transform.position;
+        secondChosenObjectTargetPos = firstChosenObject.transform.position;
 
-        firstChosenObject.transform.position = secondTempCandyPosition;
-        secondChosenObject.transform.position = firstTempCandyPosition;
-
-        if (isBlowed)
-        {
-            secondChosenObject.transform.position = secondTempCandyPosition;
-            firstChosenObject.transform.position = firstTempCandyPosition;
-        }
+        firstChosenObject.transform.position = firstChosenObjectTargetPos;
+        secondChosenObject.transform.position = secondChosenObjectTargetPos;
+     
     }
 
 }

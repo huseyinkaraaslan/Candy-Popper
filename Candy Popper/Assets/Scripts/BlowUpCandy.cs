@@ -4,79 +4,113 @@ using UnityEngine;
 
 public class BlowUpCandy : MonoBehaviour
 {
-    GameObject firstChosenObject, secondObject, thirdObject;
+    GameObject firstChosenObject;
     GameObject onTheRightCandy, onTheLeftCandy;
     List<GameObject> candies;
 
-    int checkLeft,checkRight,listCount;
-    bool isAdded;
+    bool firstChosenObjectIsAdded;
 
     void Start()
     {
         candies = new List<GameObject>();
-        isAdded = false;
+        firstChosenObjectIsAdded = false;
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        firstChosenObject = gameObject.GetComponent<PlayerControl>().firstChosenObject;
+    {        
         checkPositionX();
+
+       
+        
     }
 
-    public void checkPositionX()
+    void checkPositionX()
     {
         if (gameObject.GetComponent<PlayerControl>().isTouched)
         {
-            checkLeft = (int)firstChosenObject.transform.position.x;
-            checkRight = (int)firstChosenObject.transform.position.x;
+            firstChosenObject = gameObject.GetComponent<PlayerControl>().firstChosenObject;
 
-            for(checkLeft = (int)firstChosenObject.transform.position.x; checkLeft >= 0; checkLeft--)
-            {           
-                if(!(isAdded))
-                {
-                    candies.Add(firstChosenObject);
-                    listCount++;
-                }
+            // add the first chosen object to the list
+            if (!firstChosenObjectIsAdded)
+            {
+                candies.Add(firstChosenObject);
+                firstChosenObjectIsAdded = true;
+            }
 
-                if(checkLeft > 0)
+            // check to the left
+            for (int checkLeft = (int)firstChosenObject.transform.position.x - 1; checkLeft >= 0; checkLeft--)
+            {
+                if(firstChosenObject.transform.position.x != 0)
                 {
-                    onTheLeftCandy = CreateCandy.candiesMatrix[checkLeft - 1, (int)firstChosenObject.transform.position.y];
+                    onTheLeftCandy = CreateCandy.candiesMatrix[checkLeft, (int)firstChosenObject.transform.position.y];
                     if (firstChosenObject.name == onTheLeftCandy.name)
                     {
                         candies.Add(onTheLeftCandy);
-                        listCount++;
+                        if(onTheLeftCandy.transform.position.x == 0)
+                        {
+                            break;
+                        }
                     }
+                    else
+                    {
+                        checkLeft = 0;
+                    }
+                }
+                else
+                {
+                    break;
                 }
                 
             }
 
-            for(checkRight = (int)firstChosenObject.transform.position.x; checkRight <= 5; checkRight++)
+            // check to the right
+            for (int checkRight = (int)firstChosenObject.transform.position.x + 1; checkRight <= 5; checkRight++)
             {
-                if (!(isAdded))
+                if(firstChosenObject.transform.position.x != 5)
                 {
-                    candies.Add(firstChosenObject);
-                    listCount++;
-                }
-
-                if(checkRight < 5)
-                {
-                    onTheRightCandy = CreateCandy.candiesMatrix[checkRight + 1, (int)firstChosenObject.transform.position.y];
+                    onTheRightCandy = CreateCandy.candiesMatrix[checkRight, (int)firstChosenObject.transform.position.y];
                     if (firstChosenObject.name == onTheRightCandy.name)
                     {
                         candies.Add(onTheRightCandy);
-                        listCount++;
+                        if (onTheRightCandy.transform.position.x == 5)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        checkRight = 5;
                     }
                 }
-                              
+                else
+                {
+                    break;
+                }
+                
             }
 
-            for(int i=0; i< candies.Count; i++)
+            if (candies.Count >= 3)
             {
-                candies.RemoveAt(i);
+                for (int i = 0; i < candies.Count; i++)
+                {
+                    Destroy(candies[i]);
+                    candies.RemoveAt(i);
+                }
             }
-            
+            else
+            {
+                for (int i = 0; i < candies.Count; i++)
+                {
+                    Destroy(candies[i]);
+                    candies.RemoveAt(i);
+                }
+            }
 
         }
+    }
+
+    void checkPositionY()
+    {
+
     }
 }

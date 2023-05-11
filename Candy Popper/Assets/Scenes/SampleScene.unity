@@ -988,6 +988,9 @@ MonoBehaviour:
   firstChosenObject: {fileID: 0}
   secondChosenObject: {fileID: 0}
   candySelectionFrame: {fileID: 0}
+  isBlowed: 0
+  isTouched: 0
+  isPositionChanging: 0
 --- !u!114 &1054158169
 MonoBehaviour:
   m_ObjectHideFlags: 0
