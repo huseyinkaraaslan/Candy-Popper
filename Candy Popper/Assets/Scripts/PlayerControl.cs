@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject firstChosenObject, secondChosenObject, candySelectionFrame;
     Touch finger;
     Vector2 fingerPosition, firstChosenObjectTargetPos, secondChosenObjectTargetPos;
-    public bool isBlowed, isTouched, isPositionChanging;
+    public bool isTouched;
 
     void Start()
     {
@@ -60,6 +60,11 @@ public class PlayerControl : MonoBehaviour
                 secondChosenObject = null;
             }
         }
+
+        else
+        {
+            isTouched = false;
+        }
     }
 
     public void changeMatrixValues()
@@ -74,8 +79,6 @@ public class PlayerControl : MonoBehaviour
         secondChosenObjectTargetPos = firstChosenObject.transform.position;
 
         firstChosenObject.transform.position = firstChosenObjectTargetPos;
-        secondChosenObject.transform.position = secondChosenObjectTargetPos;
-     
+        secondChosenObject.transform.position = secondChosenObjectTargetPos;    
     }
-
 }

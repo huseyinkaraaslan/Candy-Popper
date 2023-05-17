@@ -952,12 +952,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   candies:
-  - {fileID: 3597975565603887024, guid: 8939b59c8c514674ebcda677dce36736, type: 3}
-  - {fileID: 780563226731708800, guid: 14422fed8b863fc4682e64173a490f9d, type: 3}
-  - {fileID: 5534300930535566094, guid: f8668b8bd15d360439ab53fcc4d7d119, type: 3}
-  - {fileID: 2057542427630730360, guid: a2f2362fb08c42f46af85e0f75f4f210, type: 3}
-  - {fileID: 6339015523822842616, guid: 0c243a1b737c52c46b8c653a0ae66c3a, type: 3}
-  - {fileID: 7352819962187242111, guid: 6ee4a910a005a624e9f0bf98dc5d8d33, type: 3}
+  - {fileID: 9015310081506691242, guid: e01f8afaa99148f46b4497ec18fd802a, type: 3}
+  - {fileID: 4071585121743993923, guid: c977908affb42ae4990c190b3f01ebba, type: 3}
+  - {fileID: 2741074549575262585, guid: db364f0103cd1304abd81d1c141d550b, type: 3}
+  - {fileID: 3714870877541756703, guid: 0f86f87bf1eda77469895b7f7b9730d7, type: 3}
+  - {fileID: 7598392243124814878, guid: 52ce586f2b5f4f548833d6fc2146fd41, type: 3}
+  - {fileID: 6434613161338568072, guid: ed40c4872de1e9c408dd3addbfa272d2, type: 3}
+  - {fileID: 1958744731639155201, guid: 7afb7f2eae56e4843a1b3339709bfa9c, type: 3}
+  - {fileID: 3623743719792966443, guid: f4f55fde9f0d89c4a9e41ee1371b9bff, type: 3}
   candyParent: {fileID: 1054158167}
 --- !u!4 &1054158167
 Transform:
@@ -988,7 +990,6 @@ MonoBehaviour:
   firstChosenObject: {fileID: 0}
   secondChosenObject: {fileID: 0}
   candySelectionFrame: {fileID: 0}
-  isBlowed: 0
   isTouched: 0
   isPositionChanging: 0
 --- !u!114 &1054158169

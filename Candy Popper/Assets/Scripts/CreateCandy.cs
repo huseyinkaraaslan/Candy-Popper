@@ -9,11 +9,11 @@ public class CreateCandy : MonoBehaviour
     public static GameObject[,] candiesMatrix;
     public Transform candyParent;
 
-
     void Start()
     {       
         candiesMatrix = new GameObject[6, 6];
 
+        // Create candies for each position in the matrix
         for (x = 0; x < 6; x++)
         {
             for (y = 0; y < 6; y++)
@@ -25,8 +25,21 @@ public class CreateCandy : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, new Vector2(0, -y), Time.deltaTime * 2);
-        //checkMatrix();
+        checkMatrix();
+
+        // Move candies to their target positions
+        for (x = 0; x < 6; x++)
+        {
+            for (y = 0; y < 6; y++)
+            {
+                if (candiesMatrix[x, y] != null)
+                {
+                    GameObject candy = candiesMatrix[x, y];
+                    Vector2 targetPosition = new Vector2(x, y);
+                    candy.transform.position = Vector2.Lerp(candy.transform.position, targetPosition, Time.deltaTime * 2);
+                }
+            }
+        }
     }
 
     public GameObject chooseCandy()
@@ -42,6 +55,7 @@ public class CreateCandy : MonoBehaviour
         newCandy.transform.SetParent(candyParent);
     }
 
+    // Check the matrix for null positions and create candies if necessary
     void checkMatrix()
     {
         for (x = 0; x < 6; x++)
@@ -55,6 +69,4 @@ public class CreateCandy : MonoBehaviour
             }
         }
     }
-
-
 }
