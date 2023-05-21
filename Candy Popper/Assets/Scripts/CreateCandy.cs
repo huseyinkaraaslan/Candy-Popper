@@ -11,12 +11,12 @@ public class CreateCandy : MonoBehaviour
 
     void Start()
     {       
-        candiesMatrix = new GameObject[6, 6];
+        candiesMatrix = new GameObject[7, 7];
 
         // Create candies for each position in the matrix
-        for (x = 0; x < 6; x++)
+        for (x = 0; x < 7; x++)
         {
-            for (y = 0; y < 6; y++)
+            for (y = 0; y < 7; y++)
             {
                 createCandies(x, y);
             }
@@ -28,9 +28,9 @@ public class CreateCandy : MonoBehaviour
         checkMatrix();
 
         // Move candies to their target positions
-        for (x = 0; x < 6; x++)
+        for (x = 0; x < 7; x++)
         {
-            for (y = 0; y < 6; y++)
+            for (y = 0; y < 7; y++)
             {
                 if (candiesMatrix[x, y] != null)
                 {
@@ -50,7 +50,7 @@ public class CreateCandy : MonoBehaviour
 
     public void createCandies(int x,int y)
     {
-        GameObject newCandy = Instantiate(chooseCandy(), new Vector2(x, y+6), Quaternion.identity);
+        GameObject newCandy = Instantiate(chooseCandy(), new Vector2(x, y+7), Quaternion.identity);
         candiesMatrix[x, y] = newCandy;
         newCandy.transform.SetParent(candyParent);
     }
@@ -58,9 +58,9 @@ public class CreateCandy : MonoBehaviour
     // Check the matrix for null positions and create candies if necessary
     void checkMatrix()
     {
-        for (x = 0; x < 6; x++)
+        for (x = 0; x < 7; x++)
         {
-            for (y = 0; y < 6; y++)
+            for (y = 0; y < 7; y++)
             {
                 if(candiesMatrix[x, y] == null)
                 {

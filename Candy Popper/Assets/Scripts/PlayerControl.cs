@@ -19,6 +19,11 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         Control();
+
+        if(gameObject.GetComponent<Timer>().time < 0)
+        {
+            isTouched = false;
+        }
     }
 
     public void Control()
@@ -30,7 +35,11 @@ public class PlayerControl : MonoBehaviour
             fingerPosition = Camera.main.ScreenToWorldPoint(new Vector2(finger.position.x, finger.position.y));
             roundedNumberX = Mathf.RoundToInt(fingerPosition.x);
             roundedNumberY = Mathf.RoundToInt(fingerPosition.y);
-            candySelectionFrame.transform.position = new Vector3(roundedNumberX, roundedNumberY, 5);
+            if(roundedNumberX <= 6 && roundedNumberX >= 0 && roundedNumberY <= 6 && roundedNumberY >= 0)
+            {
+                candySelectionFrame.transform.position = new Vector3(roundedNumberX, roundedNumberY, -10);
+            }
+            
 
             if (firstChosenObject == null)
             {

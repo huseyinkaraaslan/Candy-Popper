@@ -6,7 +6,7 @@ public class BlowUpCandy : MonoBehaviour
 {
     GameObject onTheRightCandy, onTheLeftCandy, onTheUpCandy, onTheDownCandy;
     List<GameObject> candiesX,candiesY;
-
+    public int score;
     void Start()
     {
         candiesX = new List<GameObject>();
@@ -18,9 +18,9 @@ public class BlowUpCandy : MonoBehaviour
         if (gameObject.GetComponent<PlayerControl>().isTouched)
         {
             // Iterate through all candies positions and find candies to be blown up
-            for (int x = 0; x < 6; x++)
+            for (int x = 0; x < 7; x++)
             {
-                for (int y = 0; y < 6; y++)
+                for (int y = 0; y < 7; y++)
                 {
                     checkPositionX(CreateCandy.candiesMatrix[x, y]); 
                     checkPositionY(CreateCandy.candiesMatrix[x, y]); 
@@ -61,23 +61,23 @@ public class BlowUpCandy : MonoBehaviour
         }
 
         // Check candies to the right
-        for (int checkRight = (int)candy.transform.position.x + 1; checkRight <= 5; checkRight++)
+        for (int checkRight = (int)candy.transform.position.x + 1; checkRight <= 6; checkRight++)
         {
-            if(candy.transform.position.x != 5)
+            if(candy.transform.position.x != 6)
             {
                 onTheRightCandy = CreateCandy.candiesMatrix[checkRight, (int)candy.transform.position.y];
                 // If the candy is of the same type, add it to the blow up list
                 if (candy.name == onTheRightCandy.name)
                 {
                     candiesX.Add(onTheRightCandy);
-                    if (onTheRightCandy.transform.position.x == 5)
+                    if (onTheRightCandy.transform.position.x == 6)
                     {
                         break;
                     }
                 }
                 else
                 {
-                    checkRight = 5;
+                    checkRight = 6;
                 }
             }
             else
@@ -85,7 +85,6 @@ public class BlowUpCandy : MonoBehaviour
                 break;
             }                
         }
-        Debug.Log("x" + candiesX.Count);
         clearCandiesList(candiesX);       
     }
 
@@ -121,23 +120,23 @@ public class BlowUpCandy : MonoBehaviour
         }
 
         // Check candies above
-        for (int checkUp = (int)candy.transform.position.y + 1; checkUp <= 5; checkUp++)
+        for (int checkUp = (int)candy.transform.position.y + 1; checkUp <= 6; checkUp++)
         {
-            if (candy.transform.position.y != 5)
+            if (candy.transform.position.y != 6)
             {
                 onTheUpCandy = CreateCandy.candiesMatrix[(int)candy.transform.position.x, checkUp];
                 // If the candy is of the same type, add it to the blow up list
                 if (candy.name == onTheUpCandy.name)
                 {
                     candiesY.Add(onTheUpCandy);
-                    if (onTheUpCandy.transform.position.y == 5)
+                    if (onTheUpCandy.transform.position.y == 6)
                     {
                         break;
                     }
                 }
                 else
                 {
-                    checkUp = 5;
+                    checkUp = 6;
                 }
             }
             else
@@ -145,7 +144,6 @@ public class BlowUpCandy : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("y" + candiesY.Count);
         clearCandiesList(candiesY);
     }
 
@@ -155,8 +153,25 @@ public class BlowUpCandy : MonoBehaviour
         {
             for(int i=0; i<candies.Count; i++)
             {
+                switch (candies.Count)
+                {
+                    case 3:
+                        score += 7;
+                        break;
+                    case 4:
+                        score += 11;
+                        break;
+                    case 5: 
+                        score += 15;
+                        break;
+                    case 6: 
+                        score += 19;
+                        break;
+                    case 7:
+                        score += 23;
+                        break;
+                }
                 CreateCandy.candiesMatrix[(int)candies[i].transform.position.x, (int)candies[i].transform.position.y] = null;
-                Debug.Log(" x " + (int)candies[i].transform.position.x + " y " +(int)candies[i].transform.position.y);
                 Destroy(candies[i]);
             }
         }
